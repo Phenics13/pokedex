@@ -6,20 +6,39 @@ export const PokemonCardContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  min-width: 10rem;
   background: white;
   border-radius: 1rem;
   box-shadow: 0px 3.1px 10px rgba(0, 0, 0, 0.035),
     0px 25px 80px rgba(0, 0, 0, 0.07);
+  cursor: pointer;
+
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: none;
+  }
 `;
 
-export const PokemonCardImage = styled.img``;
+export const PokemonCardImage = styled.img`
+  width: 6rem;
+  height: 6rem;
+  margin: 1rem 0;
+`;
 
-export const PokemonCardName = styled.h3``;
+export const PokemonCardName = styled.h3`
+  text-transform: capitalize;
+`;
 
 export const PokemonCardTypes = styled.div`
   margin-top: 1rem;
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
+
+  span {
+    margin: 0 auto;
+  }
 `;
 
 type PokemonCardTypeProps = {

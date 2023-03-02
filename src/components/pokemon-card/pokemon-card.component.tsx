@@ -1,6 +1,6 @@
-import axios from "axios";
-import { FC, useEffect, useState } from "react";
-import { Pokemon } from "../pokemons-preview/pokemons-preview.component";
+import { FC, useContext } from "react";
+import { PokemonData, PokemonContext } from "../../context/pokemon.context";
+
 import {
   PokemonCardContainer,
   PokemonCardImage,
@@ -9,58 +9,29 @@ import {
   PokemonCardType,
 } from "./pokemon-card.styles";
 
-type PokemonData = {
-  id: number;
-  name: string;
-  sprites: {};
-  stats: [];
-  types: [];
-  weight: number;
-};
-
 type PokemonCardProps = {
-  pokemon: Pokemon;
+  pokemon: PokemonData;
 };
 
 const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
-  const { name, url } = pokemon;
-  const [pokemonData, setPokemonData] = useState<PokemonData>(
-    {} as PokemonData
-  );
+  const { name, types, imageURL } = pokemon;
+  const { setChosePokemon } = useContext(PokemonContext);
 
-  const getPokemonImage = (pokemonID: number) => {
-    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonID}.png`;
+  const handleClick = () => {
+    setChosePokemon(pokemon);
   };
 
-  useEffect(() => {
-    try {
-      axios(url).then((json) => {
-        console.log(json.data);
-        setPokemonData(json.data);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-
   return (
-    <PokemonCardContainer>
-      {!!Object.keys(pokemonData).length && (
-        <>
-          <PokemonCardImage
-            src={getPokemonImage(pokemonData.id)}
-            alt={`pokemon ${name}`}
-          />
-          <PokemonCardName>{name}</PokemonCardName>
-          <PokemonCardTypes>
-            {pokemonData.types.map((type: any) => (
-              <PokemonCardType key={type.type.name} type={type.type.name}>
-                {type.type.name}
-              </PokemonCardType>
-            ))}
-          </PokemonCardTypes>
-        </>
-      )}
+    <PokemonCardContainer onClick={handleClick}>
+      <PokemonCardImage src={imageURL} alt={`pokemon ${name}`} />
+      <PokemonCardName>{name}</PokemonCardName>
+      <PokemonCardTypes>
+        {types.map((type: any) => (
+          <PokemonCardType key={type.type.name} type={type.type.name}>
+            {type.type.name}
+          </PokemonCardType>
+        ))}
+      </PokemonCardTypes>
     </PokemonCardContainer>
   );
 };
