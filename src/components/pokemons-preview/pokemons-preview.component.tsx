@@ -13,17 +13,6 @@ import {
 
 import PokemonCard from "../pokemon-card/pokemon-card.component";
 
-const getPokemonImage = (pokemonId: number): string => {
-  return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemonId}.svg`;
-};
-
-const addPokemonImage = (pokemonData: PokemonData[]): PokemonData[] => {
-  return pokemonData.map((pokemonDataItem: PokemonData) => {
-    pokemonDataItem.imageURL = getPokemonImage(pokemonDataItem.id);
-    return pokemonDataItem;
-  });
-};
-
 const PokemonsPreview = memo(() => {
   const [next, setNext] = useState<string>(
     "https://pokeapi.co/api/v2/pokemon/?limit=12&offset=0"
@@ -32,7 +21,6 @@ const PokemonsPreview = memo(() => {
   const [types, setTypes] = useState<Type[]>([]);
   const [selectedType, setSelectedType] = useState<string>("all");
   const [input, setInput] = useState<string>("");
-  console.log(pokemons);
 
   const getPokemonData = (
     pokemonURL: string
@@ -57,8 +45,7 @@ const PokemonsPreview = memo(() => {
           });
 
           Promise.all(pokemonData).then((pokemonData: PokemonData[]) => {
-            const pokemonDataWithImage = addPokemonImage(pokemonData);
-            setPokemons([...pokemons, ...pokemonDataWithImage]);
+            setPokemons([...pokemons, ...pokemonData]);
           });
         });
     } catch (error) {
@@ -85,7 +72,6 @@ const PokemonsPreview = memo(() => {
   };
 
   const sortedPokemonsByType = useMemo(() => {
-    console.log("sortedPokemons");
     if (selectedType === "all") {
       return pokemons;
     }
@@ -96,7 +82,6 @@ const PokemonsPreview = memo(() => {
   }, [pokemons, selectedType]);
 
   const sortedPokemonsByInputAndType = useMemo(() => {
-    console.log("sortedPokemonsByInput");
     if (!input) {
       return sortedPokemonsByType;
     }

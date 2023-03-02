@@ -13,7 +13,7 @@ type PokemonPreviewProps = {
 };
 
 const PokemonPreview: FC<PokemonPreviewProps> = ({ chosePokemon }) => {
-  const { id, name, imageURL, types, stats, weight, moves } = chosePokemon;
+  const { id, name, sprites, types, stats, weight, moves } = chosePokemon;
 
   const actualTypes = types.map((type: any) => type.type.name).join(", ");
 
@@ -41,7 +41,7 @@ const PokemonPreview: FC<PokemonPreviewProps> = ({ chosePokemon }) => {
   return (
     <PokemonPreviewContainer>
       <PokemonPreviewCard>
-        <CardImage src={imageURL} alt={name} />
+        <CardImage src={sprites.other.dream_world.front_default} alt={name} />
         <CardTitle>
           {chosePokemon.name} {"#" + getNumber(id)}
         </CardTitle>

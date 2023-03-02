@@ -7,6 +7,11 @@ import {
   useState,
 } from "react";
 
+export type Pokemon = {
+  name: string;
+  url: string;
+};
+
 export type Type = {
   name: string;
   url: string;
@@ -17,18 +22,41 @@ export type PokemonType = {
   type: Type;
 };
 
-export type Pokemon = {
-  name: string;
-  url: string;
+export type Sprites = {
+  back_default: string;
+  front_default: string;
+  other: {
+    dream_world: {
+      front_default: string;
+    };
+    home: {
+      front_default: string;
+      front_shiny: string;
+    };
+
+    "official-artwork": {
+      front_default: string;
+      front_shiny: string;
+    };
+  };
+};
+
+export type Stats = {
+  base_stat: number;
+  effort: number;
+  stat: {
+    name: string;
+    url: string;
+  };
 };
 
 export type PokemonData = {
   id: number;
   name: string;
-  stats: [];
+  stats: Stats[];
   types: PokemonType[];
   weight: number;
-  imageURL: string;
+  sprites: Sprites;
   moves: [];
 };
 
