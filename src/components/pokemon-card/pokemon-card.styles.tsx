@@ -2,11 +2,14 @@ import styled from "styled-components";
 
 export const PokemonCardContainer = styled.div`
   padding-bottom: 2rem;
+  width: 100%;
+  min-width: 10rem;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  min-width: 10rem;
+  text-align: center;
+
   background: white;
   border-radius: 1rem;
   box-shadow: 0px 3.1px 10px rgba(0, 0, 0, 0.035),

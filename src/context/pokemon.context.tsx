@@ -7,6 +7,16 @@ import {
   useState,
 } from "react";
 
+export type Type = {
+  name: string;
+  url: string;
+};
+
+export type PokemonType = {
+  slot: number;
+  type: Type;
+};
+
 export type Pokemon = {
   name: string;
   url: string;
@@ -16,7 +26,7 @@ export type PokemonData = {
   id: number;
   name: string;
   stats: [];
-  types: [];
+  types: PokemonType[];
   weight: number;
   imageURL: string;
   moves: [];

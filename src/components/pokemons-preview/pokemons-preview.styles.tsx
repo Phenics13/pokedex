@@ -28,3 +28,22 @@ export const PokemonsButton = styled.button`
     background: #5e43e4;
   }
 `;
+
+export const PokemonSelect = styled.select``;
+
+export const PokemonInput = styled.input`
+  width: 70%;
+`;
+
+export const PokemonsInputsContainer = styled.div`
+  width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+
+  ${PokemonSelect}, ${PokemonInput} {
+    border: none;
+    padding: 1rem;
+    border-radius: 1rem;
+  }
+`;
