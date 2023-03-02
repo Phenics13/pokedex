@@ -1,10 +1,16 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Pokemon, PokemonData } from "../../context/pokemon.context";
-import PokemonCard from "../pokemon-card/pokemon-card.component";
-import { PokemonsPreviewContainer } from "./pokemons-preview.styles";
 
-const PokemonsPreview = () => {
+import {
+  PokemonsPreviewContainer,
+  PokemonsList,
+  PokemonsButton,
+} from "./pokemons-preview.styles";
+
+import PokemonCard from "../pokemon-card/pokemon-card.component";
+
+const PokemonsPreview = memo(() => {
   const [pokemons, setPokemons] = useState<PokemonData[]>([]);
 
   const getPokemonData = (
@@ -17,13 +23,13 @@ const PokemonsPreview = () => {
     }
   };
 
-  const getPokemonImage = (pokemonId: number) => {
+  const getPokemonImage = (pokemonId: number): string => {
     return `https://unpkg.com/pokeapi-sprites@2.0.2/sprites/pokemon/other/dream-world/${pokemonId}.svg`;
   };
 
   useEffect(() => {
     try {
-      axios("https://pokeapi.co/api/v2/pokemon/?limit=30&offset=0")
+      axios("https://pokeapi.co/api/v2/pokemon/?limit=12&offset=0")
         .then((json) => json.data.results)
         .then((pokemonList) => {
           const pokemonData = pokemonList.map((pokemon: Pokemon) => {
@@ -44,11 +50,14 @@ const PokemonsPreview = () => {
 
   return (
     <PokemonsPreviewContainer>
-      {pokemons.map((pokemon) => (
-        <PokemonCard key={pokemon.name} pokemon={pokemon} />
-      ))}
+      <PokemonsList>
+        {pokemons.map((pokemon) => (
+          <PokemonCard key={pokemon.name} pokemon={pokemon} />
+        ))}
+      </PokemonsList>
+      <PokemonsButton>Load More</PokemonsButton>
     </PokemonsPreviewContainer>
   );
-};
+});
 
 export default PokemonsPreview;

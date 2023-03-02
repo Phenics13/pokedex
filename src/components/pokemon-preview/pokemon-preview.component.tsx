@@ -1,6 +1,6 @@
-import { FC, useContext, useEffect } from "react";
+import { FC } from "react";
 
-import { PokemonContext, PokemonData } from "../../context/pokemon.context";
+import { PokemonData } from "../../context/pokemon.context";
 import {
   PokemonPreviewCard,
   PokemonPreviewContainer,
@@ -8,13 +8,11 @@ import {
   CardImage,
 } from "./pokemon-preview.styles";
 
-type PokemonPreviewInnerProps = {
+type PokemonPreviewProps = {
   chosePokemon: PokemonData;
 };
 
-const PokemonPreviewInner: FC<PokemonPreviewInnerProps> = ({
-  chosePokemon,
-}) => {
+const PokemonPreview: FC<PokemonPreviewProps> = ({ chosePokemon }) => {
   const { id, name, imageURL, types, stats, weight, moves } = chosePokemon;
 
   const actualTypes = types.map((type: any) => type.type.name).join(", ");
@@ -41,49 +39,34 @@ const PokemonPreviewInner: FC<PokemonPreviewInnerProps> = ({
   };
 
   return (
-    <>
-      <CardImage src={imageURL} alt={name} />
-      <CardTitle>
-        {chosePokemon.name} {"#" + getNumber(id)}
-      </CardTitle>
-      <table>
-        <tbody>
-          <tr>
-            <td>Type</td>
-            <td>{actualTypes}</td>
-          </tr>
-          {Object.keys(sortedActualStats).map((stat: any) => (
-            <tr key={stat}>
-              <td>{stat}</td>
-              <td>{sortedActualStats[stat]}</td>
-            </tr>
-          ))}
-          <tr>
-            <td>Weight</td>
-            <td>{weight}</td>
-          </tr>
-          <tr>
-            <td>Total moves</td>
-            <td>{moves.length}</td>
-          </tr>
-        </tbody>
-      </table>
-    </>
-  );
-};
-
-const PokemonPreview = () => {
-  const { chosePokemon } = useContext(PokemonContext);
-  console.log(chosePokemon);
-
-  return (
     <PokemonPreviewContainer>
       <PokemonPreviewCard>
-        {!chosePokemon ? (
-          <h3>Choose a Pokemon</h3>
-        ) : (
-          <PokemonPreviewInner chosePokemon={chosePokemon} />
-        )}
+        <CardImage src={imageURL} alt={name} />
+        <CardTitle>
+          {chosePokemon.name} {"#" + getNumber(id)}
+        </CardTitle>
+        <table>
+          <tbody>
+            <tr>
+              <td>Type</td>
+              <td>{actualTypes}</td>
+            </tr>
+            {Object.keys(sortedActualStats).map((stat: any) => (
+              <tr key={stat}>
+                <td>{stat}</td>
+                <td>{sortedActualStats[stat]}</td>
+              </tr>
+            ))}
+            <tr>
+              <td>Weight</td>
+              <td>{weight}</td>
+            </tr>
+            <tr>
+              <td>Total moves</td>
+              <td>{moves.length}</td>
+            </tr>
+          </tbody>
+        </table>
       </PokemonPreviewCard>
     </PokemonPreviewContainer>
   );
