@@ -1,6 +1,10 @@
-import { FC } from "react";
+import { FC, MouseEvent, useContext } from "react";
 
-import { PokemonData } from "../../context/pokemon.context";
+import {
+  PokemonContext,
+  PokemonData,
+  Stats,
+} from "../../context/pokemon.context";
 import {
   PokemonPreviewCard,
   PokemonPreviewContainer,
@@ -13,16 +17,21 @@ type PokemonPreviewProps = {
 };
 
 const PokemonPreview: FC<PokemonPreviewProps> = ({ chosePokemon }) => {
+  const { manageOpen } = useContext(PokemonContext);
+
   const { id, name, sprites, types, stats, weight, moves } = chosePokemon;
 
   const actualTypes = types.map((type: any) => type.type.name).join(", ");
 
-  const actualStats = stats.reduce((acc: any, stat: any) => {
-    acc[stat.stat.name] = stat.base_stat;
-    return acc;
-  }, {});
+  const actualStats = stats.reduce(
+    (acc: { [key: string]: number }, stat: Stats) => {
+      acc[stat.stat.name] = stat.base_stat;
+      return acc;
+    },
+    {}
+  );
 
-  const sortedActualStats: any = Object.fromEntries(
+  const sortedActualStats = Object.fromEntries(
     Object.entries(actualStats)
       .sort()
       .map((entry) => {
@@ -38,9 +47,17 @@ const PokemonPreview: FC<PokemonPreviewProps> = ({ chosePokemon }) => {
     return pokemonId.toString();
   };
 
+  const handleManageOpen = () => {
+    manageOpen();
+  };
+
+  const handleStopPropagation = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+  };
+
   return (
-    <PokemonPreviewContainer>
-      <PokemonPreviewCard>
+    <PokemonPreviewContainer onClick={handleManageOpen}>
+      <PokemonPreviewCard onClick={handleStopPropagation}>
         <CardImage src={sprites.other.dream_world.front_default} alt={name} />
         <CardTitle>
           {chosePokemon.name} {"#" + getNumber(id)}

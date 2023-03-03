@@ -21,6 +21,12 @@ export const PokemonCardContainer = styled.div`
     transform: scale(1.05);
     box-shadow: none;
   }
+
+  @media screen and (max-width: 425px) {
+    &:hover {
+      transform: none;
+    }
+  }
 `;
 
 export const PokemonCardImage = styled.img`

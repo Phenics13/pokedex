@@ -15,10 +15,11 @@ type PokemonCardProps = {
 
 const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
   const { name, types, sprites } = pokemon;
-  const { setChosePokemon } = useContext(PokemonContext);
+  const { setChosePokemon, manageOpen } = useContext(PokemonContext);
 
   const handleClick = () => {
     setChosePokemon(pokemon);
+    manageOpen();
   };
 
   return (

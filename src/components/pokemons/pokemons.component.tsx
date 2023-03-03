@@ -11,20 +11,23 @@ import PokemonPreview from "../pokemon-preview/pokemon-preview.component";
 import PokemonsPreview from "../pokemons-preview/pokemons-preview.component";
 
 const Pokemons = () => {
-  const { chosePokemon } = useContext(PokemonContext);
+  const { chosePokemon, isOpen } = useContext(PokemonContext);
+
+  document.body.style.overflow =
+    document.body.clientWidth <= 425 && isOpen ? "hidden" : "unset";
 
   return (
     <PokemonsContainer>
       <PokemonsPreview />
-      {chosePokemon ? (
-        <PokemonPreview chosePokemon={chosePokemon} />
-      ) : (
-        <PokemonPreviewContainer>
-          <PokemonPreviewCard>
-            <h3>Choose a Pokemon</h3>
-          </PokemonPreviewCard>
-        </PokemonPreviewContainer>
-      )}
+      {chosePokemon
+        ? isOpen && <PokemonPreview chosePokemon={chosePokemon} />
+        : isOpen && (
+            <PokemonPreviewContainer>
+              <PokemonPreviewCard>
+                <h3>Choose a Pokemon</h3>
+              </PokemonPreviewCard>
+            </PokemonPreviewContainer>
+          )}
     </PokemonsContainer>
   );
 };

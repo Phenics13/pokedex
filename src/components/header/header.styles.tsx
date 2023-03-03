@@ -10,6 +10,10 @@ export const HeaderContainer = styled.header`
   justify-content: center;
   border-radius: 1rem;
   background-color: #ef5350;
+
+  @media screen and (max-width: 425px) {
+    font-size: 0.5rem;
+  }
 `;
 
 export const HeaderImage = styled.img`
@@ -19,6 +23,10 @@ export const HeaderImage = styled.img`
   border-radius: 50%;
   border: 3px solid white;
   margin-right: 1rem;
+
+  @media screen and (max-width: 425px) {
+    width: 2rem;
+  }
 `;
 
 export const HeaderTitle = styled.h1``;

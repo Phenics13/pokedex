@@ -9,6 +9,14 @@ export const PokemonsList = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (max-width: 320px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 export const PokemonsButton = styled.button`
@@ -33,5 +41,11 @@ export const PokemonsInputsContainer = styled.div`
   width: 100%;
   margin-bottom: 2rem;
   display: flex;
+  gap: 2rem;
   justify-content: space-between;
+
+  @media screen and (max-width: 320px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
 `;
