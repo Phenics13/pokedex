@@ -22,7 +22,7 @@ export const PokemonCardContainer = styled.div`
     box-shadow: none;
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 480px) {
     &:hover {
       transform: none;
     }

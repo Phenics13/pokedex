@@ -10,7 +10,7 @@ export const PokemonsList = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 780px) {
     grid-template-columns: repeat(2, 1fr);
   }
 

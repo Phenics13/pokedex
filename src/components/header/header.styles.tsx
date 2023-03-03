@@ -11,7 +11,7 @@ export const HeaderContainer = styled.header`
   border-radius: 1rem;
   background-color: #ef5350;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 480px) {
     font-size: 0.5rem;
   }
 `;
@@ -24,7 +24,7 @@ export const HeaderImage = styled.img`
   border: 3px solid white;
   margin-right: 1rem;
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 480px) {
     width: 2rem;
   }
 `;

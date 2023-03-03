@@ -4,11 +4,11 @@ export const PokemonPreviewContainer = styled.div`
   width: 50%;
   position: relative;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 780px) {
     width: 60%;
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 480px) {
     position: fixed;
     width: 100%;
     height: 100%;
@@ -55,7 +55,7 @@ export const PokemonPreviewCard = styled.div`
     width: 35vw;
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 480px) {
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 2rem 0;
@@ -72,11 +72,11 @@ export const CardImage = styled.img`
   width: 100%;
   height: 10rem;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 780px) {
     height: 8rem;
   }
 
-  @media screen and (max-width: 425px) {
+  @media screen and (max-width: 480px) {
     height: 10rem;
   } ;
 `;
