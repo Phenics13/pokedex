@@ -1,6 +1,7 @@
 # Hi there!
 
 ![Preview](https://c4.wallpaperflare.com/wallpaper/772/372/914/pokemon-eevee-pokemon-eeveelutions-espeon-pokemon-wallpaper-preview.jpg)
+
 This is **Pokedex app**.
 
 It is used for searching for different pokemons and their specifications. It is compatible with Desktops and Mobiles. Some main features are pokemons cards each with pokemon's type, pokemon's specification, select pokemons by type, search pokemons by name.
