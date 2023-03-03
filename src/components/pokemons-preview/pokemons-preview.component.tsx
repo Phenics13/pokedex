@@ -1,17 +1,22 @@
-import axios from "axios";
 import { ChangeEvent, memo, useEffect, useMemo, useState } from "react";
-import { Pokemon, PokemonData, Type } from "../../context/pokemon.context";
+import { PokemonData, Type } from "../../context/pokemon.context";
 
 import {
   PokemonsPreviewContainer,
   PokemonsList,
   PokemonsButton,
   PokemonsInputsContainer,
-  PokemonSelect,
-  PokemonInput,
 } from "./pokemons-preview.styles";
 
 import PokemonCard from "../pokemon-card/pokemon-card.component";
+
+import {
+  getPokemons,
+  getPokemonsData,
+  getTypes,
+} from "../../utils/getPokemons.utils";
+import PokemonSelect from "../pokemon-select/pokemon-select.component";
+import PokemonInput from "../pokemon-input/pokemon-input.component";
 
 const PokemonsPreview = memo(() => {
   const [next, setNext] = useState<string>(
@@ -22,29 +27,15 @@ const PokemonsPreview = memo(() => {
   const [selectedType, setSelectedType] = useState<string>("all");
   const [input, setInput] = useState<string>("");
 
-  const getPokemonData = (
-    pokemonURL: string
-  ): Promise<PokemonData> | undefined => {
+  const getAllPokemons = () => {
     try {
-      return axios(pokemonURL).then((json) => json.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getPokemons = () => {
-    try {
-      axios(next)
-        .then((json) => {
-          setNext(json.data.next);
-          return json.data.results;
+      getPokemons(next)
+        .then((data) => {
+          setNext(data.next);
+          return data.results;
         })
         .then((pokemonList) => {
-          const pokemonData = pokemonList.map((pokemon: Pokemon) => {
-            return getPokemonData(pokemon.url);
-          });
-
-          Promise.all(pokemonData).then((pokemonData: PokemonData[]) => {
+          getPokemonsData(pokemonList).then((pokemonData) => {
             setPokemons([...pokemons, ...pokemonData]);
           });
         });
@@ -54,13 +45,15 @@ const PokemonsPreview = memo(() => {
   };
 
   useEffect(() => {
-    getPokemons();
+    getAllPokemons();
   }, []);
 
   useEffect(() => {
-    axios("https://pokeapi.co/api/v2/type?limit=999").then((json) =>
-      setTypes(json.data.results)
-    );
+    try {
+      getTypes().then((types) => setTypes(types));
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   const handleSelectChange = (event: ChangeEvent<HTMLSelectElement>) => {
@@ -94,20 +87,8 @@ const PokemonsPreview = memo(() => {
   return (
     <PokemonsPreviewContainer>
       <PokemonsInputsContainer>
-        <PokemonSelect onChange={handleSelectChange}>
-          <option value="all">All</option>
-          {types.map((type) => (
-            <option key={type.name} value={type.name}>
-              {type.name}
-            </option>
-          ))}
-        </PokemonSelect>
-        <PokemonInput
-          type="text"
-          value={input}
-          onChange={handleInputChange}
-          placeholder="Search for a Pokemon"
-        />
+        <PokemonSelect types={types} onChange={handleSelectChange} />
+        <PokemonInput value={input} onChange={handleInputChange} />
       </PokemonsInputsContainer>
       {sortedPokemonsByInputAndType.length ? (
         <PokemonsList>
@@ -118,7 +99,9 @@ const PokemonsPreview = memo(() => {
       ) : (
         <h3 style={{ textAlign: "center" }}>No Pokemons found</h3>
       )}
-      {next && <PokemonsButton onClick={getPokemons}>Load More</PokemonsButton>}
+      {next && (
+        <PokemonsButton onClick={getAllPokemons}>Load More</PokemonsButton>
+      )}
     </PokemonsPreviewContainer>
   );
 });
