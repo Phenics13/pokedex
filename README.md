@@ -2,7 +2,7 @@
 
 ![Preview](https://c4.wallpaperflare.com/wallpaper/772/372/914/pokemon-eevee-pokemon-eeveelutions-espeon-pokemon-wallpaper-preview.jpg)
 
-This is **Pokedex app**.
+This is **Pokedex**.
 
 It is used for searching for different pokemons and their specifications. It is compatible with Desktops and Mobiles. Some main features are pokemons cards each with pokemon's type, pokemon's specification, select pokemons by type, search pokemons by name.
 
@@ -78,3 +78,26 @@ _Chose Pokemon on Mobile_
 _Desktop preview_
 
 ![Desktop preview](readme.assets/Pokedex-Desktop.png)
+
+## How to run project on a client
+
+I am using Vite for creating my project. So to run my project on your client you need to do next things:
+
+1. `git clone https://github.com/Phenics13/teamvoy-pokemons`
+
+   This command clones repository to your computer.
+
+2. `cd teamvoy-pokemons`
+
+   This command enters project's folder.
+
+3. `npm install`
+
+   This command installs all dependencies used in the project.
+
+4. `npm run dev`
+
+   This command runs the project on your localhost.
+
+<hr/>
+I hope you enjoyed my Pokedex! Feel free to give some feedback. Peace 😊
