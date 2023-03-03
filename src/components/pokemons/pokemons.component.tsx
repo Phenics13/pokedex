@@ -14,7 +14,7 @@ const Pokemons = () => {
   const { chosePokemon, isOpen } = useContext(PokemonContext);
 
   document.body.style.overflow =
-    document.body.clientWidth <= 425 && isOpen ? "hidden" : "unset";
+    document.body.clientWidth <= 480 && isOpen ? "hidden" : "unset";
 
   return (
     <PokemonsContainer>

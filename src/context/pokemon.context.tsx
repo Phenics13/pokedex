@@ -70,18 +70,18 @@ type PokemonContextType = {
 export const PokemonContext = createContext<PokemonContextType>({
   chosePokemon: null,
   setChosePokemon: () => {},
-  isOpen: document.body.clientWidth > 425,
+  isOpen: document.body.clientWidth > 480,
   manageOpen: () => {},
 });
 
 export const PokemonProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [chosePokemon, setChosePokemon] = useState<PokemonData | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(
-    document.body.clientWidth > 425
+    document.body.clientWidth > 480
   );
 
   const manageOpen = () => {
-    setIsOpen(document.body.clientWidth > 425 || !isOpen);
+    setIsOpen(document.body.clientWidth > 480 || !isOpen);
   };
 
   const value = {
