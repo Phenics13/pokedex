@@ -1,6 +1,11 @@
 import styled from "styled-components";
 
-export const PokemonPreviewContainer = styled.div`
+type PokemonPreviewContainerProps = {
+  isOpen?: boolean;
+};
+
+export const PokemonPreviewContainer = styled.div<PokemonPreviewContainerProps>`
+  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
   width: 50%;
   position: relative;
 
@@ -69,7 +74,6 @@ export const CardTitle = styled.h3`
 `;
 
 export const CardImage = styled.img`
-  width: 100%;
   height: 10rem;
 
   @media screen and (max-width: 780px) {

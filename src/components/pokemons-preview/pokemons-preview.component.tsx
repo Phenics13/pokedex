@@ -6,15 +6,16 @@ import {
   PokemonsList,
   PokemonsButton,
   PokemonsInputsContainer,
+  ButtonSpinner,
 } from "./pokemons-preview.styles";
-
-import PokemonCard from "../pokemon-card/pokemon-card.component";
 
 import {
   getPokemons,
   getPokemonsData,
   getTypes,
 } from "../../utils/getPokemons.utils";
+
+import PokemonCard from "../pokemon-card/pokemon-card.component";
 import PokemonSelect from "../pokemon-select/pokemon-select.component";
 import PokemonInput from "../pokemon-input/pokemon-input.component";
 
@@ -23,12 +24,15 @@ const PokemonsPreview = memo(() => {
     "https://pokeapi.co/api/v2/pokemon/?limit=12&offset=0"
   );
   const [pokemons, setPokemons] = useState<PokemonData[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [types, setTypes] = useState<Type[]>([]);
+
   const [selectedType, setSelectedType] = useState<string>("all");
   const [input, setInput] = useState<string>("");
 
   const getAllPokemons = () => {
     try {
+      setIsLoading(true);
       getPokemons(next)
         .then((data) => {
           setNext(data.next);
@@ -38,7 +42,8 @@ const PokemonsPreview = memo(() => {
           getPokemonsData(pokemonList).then((pokemonData) => {
             setPokemons([...pokemons, ...pokemonData]);
           });
-        });
+        })
+        .finally(() => setIsLoading(false));
     } catch (error) {
       console.log(error);
     }
@@ -100,7 +105,9 @@ const PokemonsPreview = memo(() => {
         <h3 style={{ textAlign: "center" }}>No Pokemons found</h3>
       )}
       {next && (
-        <PokemonsButton onClick={getAllPokemons}>Load More</PokemonsButton>
+        <PokemonsButton onClick={getAllPokemons}>
+          {isLoading ? <ButtonSpinner /> : "Load More"}
+        </PokemonsButton>
       )}
     </PokemonsPreviewContainer>
   );

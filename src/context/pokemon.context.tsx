@@ -63,32 +63,26 @@ export type PokemonData = {
 type PokemonContextType = {
   chosePokemon: PokemonData | null;
   setChosePokemon: Dispatch<SetStateAction<PokemonData | null>>;
-  isOpen: boolean;
-  manageOpen: () => void;
+  emptyChosePokemon: () => void;
 };
 
 export const PokemonContext = createContext<PokemonContextType>({
   chosePokemon: null,
   setChosePokemon: () => {},
-  isOpen: document.body.clientWidth > 480,
-  manageOpen: () => {},
+  emptyChosePokemon: () => {},
 });
 
 export const PokemonProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [chosePokemon, setChosePokemon] = useState<PokemonData | null>(null);
-  const [isOpen, setIsOpen] = useState<boolean>(
-    document.body.clientWidth > 480
-  );
 
-  const manageOpen = () => {
-    setIsOpen(document.body.clientWidth > 480 || !isOpen);
+  const emptyChosePokemon = () => {
+    setChosePokemon(null);
   };
 
   const value = {
     chosePokemon,
     setChosePokemon,
-    isOpen,
-    manageOpen,
+    emptyChosePokemon,
   };
   return (
     <PokemonContext.Provider value={value}>{children}</PokemonContext.Provider>

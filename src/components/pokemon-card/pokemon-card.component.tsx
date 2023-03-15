@@ -15,22 +15,21 @@ type PokemonCardProps = {
 
 const PokemonCard: FC<PokemonCardProps> = ({ pokemon }) => {
   const { name, types, sprites } = pokemon;
-  const { setChosePokemon, manageOpen } = useContext(PokemonContext);
+  const { setChosePokemon } = useContext(PokemonContext);
 
   const handleClick = () => {
     setChosePokemon(pokemon);
-    manageOpen();
   };
 
   return (
     <PokemonCardContainer onClick={handleClick}>
       <PokemonCardImage
-        src={sprites.other.dream_world.front_default}
+        src={sprites.other["official-artwork"].front_default}
         alt={`pokemon ${name}`}
       />
       <PokemonCardName>{name}</PokemonCardName>
       <PokemonCardTypes>
-        {types.map((type: any) => (
+        {types.map((type) => (
           <PokemonCardType key={type.type.name} type={type.type.name}>
             {type.type.name}
           </PokemonCardType>

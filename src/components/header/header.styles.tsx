@@ -18,6 +18,7 @@ export const HeaderContainer = styled.header`
 
 export const HeaderImage = styled.img`
   width: 3rem;
+  height: 3rem;
 
   background: white;
   border-radius: 50%;
@@ -26,6 +27,7 @@ export const HeaderImage = styled.img`
 
   @media screen and (max-width: 480px) {
     width: 2rem;
+    height: 2rem;
   }
 `;
 

@@ -17,7 +17,7 @@ type PokemonPreviewProps = {
 };
 
 const PokemonPreview: FC<PokemonPreviewProps> = ({ chosePokemon }) => {
-  const { manageOpen } = useContext(PokemonContext);
+  const { emptyChosePokemon } = useContext(PokemonContext);
 
   const { id, name, sprites, types, stats, weight, moves } = chosePokemon;
 
@@ -47,8 +47,8 @@ const PokemonPreview: FC<PokemonPreviewProps> = ({ chosePokemon }) => {
     return pokemonId.toString();
   };
 
-  const handleManageOpen = () => {
-    manageOpen();
+  const handleClose = () => {
+    if (document.body.clientWidth <= 480) emptyChosePokemon();
   };
 
   const handleStopPropagation = (e: MouseEvent<HTMLDivElement>) => {
@@ -56,9 +56,12 @@ const PokemonPreview: FC<PokemonPreviewProps> = ({ chosePokemon }) => {
   };
 
   return (
-    <PokemonPreviewContainer onClick={handleManageOpen}>
+    <PokemonPreviewContainer onClick={handleClose} isOpen={true}>
       <PokemonPreviewCard onClick={handleStopPropagation}>
-        <CardImage src={sprites.other.dream_world.front_default} alt={name} />
+        <CardImage
+          src={sprites.other["official-artwork"].front_default}
+          alt={name}
+        />
         <CardTitle>
           {chosePokemon.name} {"#" + getNumber(id)}
         </CardTitle>
@@ -68,7 +71,7 @@ const PokemonPreview: FC<PokemonPreviewProps> = ({ chosePokemon }) => {
               <td>Type</td>
               <td>{actualTypes}</td>
             </tr>
-            {Object.keys(sortedActualStats).map((stat: any) => (
+            {Object.keys(sortedActualStats).map((stat) => (
               <tr key={stat}>
                 <td>{stat}</td>
                 <td>{sortedActualStats[stat]}</td>
