@@ -105,7 +105,7 @@ const PokemonsPreview = memo(() => {
         <h3 style={{ textAlign: "center" }}>No Pokemons found</h3>
       )}
       {next && (
-        <PokemonsButton onClick={getAllPokemons}>
+        <PokemonsButton onClick={getAllPokemons} disabled={isLoading}>
           {isLoading ? <ButtonSpinner /> : "Load More"}
         </PokemonsButton>
       )}

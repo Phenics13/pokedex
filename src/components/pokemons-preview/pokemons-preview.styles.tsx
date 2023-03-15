@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import pokemonLogo from "../../assets/pokemon-logo.png";
 
 export const PokemonsPreviewContainer = styled.div`
   width: 100%;
@@ -35,15 +36,25 @@ export const PokemonsButton = styled.button`
   &:hover {
     background: #5e43e4;
   }
+  &:disabled {
+    background: #c3b7fe;
+  }
 `;
 
 export const ButtonSpinner = styled.div`
   display: inline-block;
-  width: 1.5rem;
-  height: 100%;
-  border: 3px solid rgba(195, 195, 195, 0.6);
+  width: 1.25rem;
+  height: 1.25rem;
+
+  background-image: url(${pokemonLogo});
+  background-color: white;
+  border: 1px solid white;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
   border-radius: 50%;
-  border-top-color: #636767;
+
   animation: spin 1s ease-in-out infinite;
   -webkit-animation: spin 1s ease-in-out infinite;
   @keyframes spin {
