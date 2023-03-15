@@ -1,12 +1,22 @@
-import { ChangeEvent, memo, useEffect, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  memo,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { PokemonData, Type } from "../../context/pokemon.context";
 
 import {
   PokemonsPreviewContainer,
   PokemonsList,
-  PokemonsButton,
+  LoadMoreButton,
+  LoadPreviousButton,
   PokemonsInputsContainer,
   ButtonSpinner,
+  ButtonsContainer,
 } from "./pokemons-preview.styles";
 
 import {
@@ -23,24 +33,32 @@ const PokemonsPreview = memo(() => {
   const [next, setNext] = useState<string>(
     "https://pokeapi.co/api/v2/pokemon/?limit=12&offset=0"
   );
+  const [previous, setPrevious] = useState<string | null>(null);
+
   const [pokemons, setPokemons] = useState<PokemonData[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [types, setTypes] = useState<Type[]>([]);
+
+  const [isLoadingMore, setIsLoadingMore] = useState<boolean>(false);
+  const [isLoadingPrevious, setIsLoadingPrevious] = useState<boolean>(false);
 
   const [selectedType, setSelectedType] = useState<string>("all");
   const [input, setInput] = useState<string>("");
 
-  const getAllPokemons = () => {
+  const getAllPokemons = (
+    request: string,
+    setIsLoading: Dispatch<SetStateAction<boolean>>
+  ) => {
     try {
       setIsLoading(true);
-      getPokemons(next)
+      getPokemons(request)
         .then((data) => {
           setNext(data.next);
+          setPrevious(data.previous);
           return data.results;
         })
         .then((pokemonList) => {
           getPokemonsData(pokemonList).then((pokemonData) => {
-            setPokemons([...pokemons, ...pokemonData]);
+            setPokemons([...pokemonData]);
           });
         })
         .finally(() => setIsLoading(false));
@@ -50,7 +68,7 @@ const PokemonsPreview = memo(() => {
   };
 
   useEffect(() => {
-    getAllPokemons();
+    getAllPokemons(next, setIsLoadingMore);
   }, []);
 
   useEffect(() => {
@@ -104,11 +122,24 @@ const PokemonsPreview = memo(() => {
       ) : (
         <h3 style={{ textAlign: "center" }}>No Pokemons found</h3>
       )}
-      {next && (
-        <PokemonsButton onClick={getAllPokemons} disabled={isLoading}>
-          {isLoading ? <ButtonSpinner /> : "Load More"}
-        </PokemonsButton>
-      )}
+      <ButtonsContainer>
+        {previous && (
+          <LoadPreviousButton
+            onClick={() => getAllPokemons(previous, setIsLoadingPrevious)}
+            disabled={isLoadingPrevious}
+          >
+            {isLoadingPrevious ? <ButtonSpinner /> : "Load Previous"}
+          </LoadPreviousButton>
+        )}
+        {next && (
+          <LoadMoreButton
+            onClick={() => getAllPokemons(next, setIsLoadingMore)}
+            disabled={isLoadingMore}
+          >
+            {isLoadingMore ? <ButtonSpinner /> : "Load More"}
+          </LoadMoreButton>
+        )}
+      </ButtonsContainer>
     </PokemonsPreviewContainer>
   );
 });

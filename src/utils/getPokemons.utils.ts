@@ -3,6 +3,7 @@ import { Pokemon, PokemonData, Type } from "../context/pokemon.context";
 
 type GetPokemons = {
   next: string;
+  previous: string;
   results: Pokemon[];
 };
 

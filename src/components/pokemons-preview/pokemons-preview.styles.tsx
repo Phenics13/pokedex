@@ -20,24 +20,48 @@ export const PokemonsList = styled.div`
   }
 `;
 
-export const PokemonsButton = styled.button`
+export const ButtonsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+`;
+
+export const BaseButton = styled.button`
   width: 100%;
   margin: 2rem auto 4rem;
   padding: 1rem;
   color: white;
-  background: #6e53f4;
+
   border: none;
   border-radius: 1rem;
   font-size: 1.2rem;
   font-weight: 600;
   cursor: pointer;
+
   transition: all 0.2s ease-in-out;
+`;
+
+export const LoadMoreButton = styled(BaseButton)`
+  background: #7e57c2;
 
   &:hover {
     background: #5e43e4;
   }
   &:disabled {
     background: #c3b7fe;
+  }
+`;
+
+export const LoadPreviousButton = styled(BaseButton)`
+  background: lightcoral;
+
+  &:hover {
+    background: coral;
+  }
+  &:disabled {
+    background: #f8a2a2;
   }
 `;
 
