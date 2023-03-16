@@ -69,6 +69,7 @@ export const PokemonPreviewCard = styled.div`
 `;
 
 export const CardTitle = styled.h3`
+  text-align: center;
   text-transform: capitalize;
   margin: 0.5rem 0;
 `;

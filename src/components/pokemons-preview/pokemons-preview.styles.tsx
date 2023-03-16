@@ -64,11 +64,16 @@ export const LoadPreviousButton = styled(BaseButton)`
     background: #f8a2a2;
   }
 `;
+type ButtonSpinnerProps = {
+  width?: string;
+  height?: string;
+};
+export const ButtonSpinner = styled.div<ButtonSpinnerProps>`
+  display: block;
+  margin: 0 auto;
 
-export const ButtonSpinner = styled.div`
-  display: inline-block;
-  width: 1.25rem;
-  height: 1.25rem;
+  width: ${({ width }) => width || "1.25rem"};
+  height: ${({ height }) => height || "1.25rem"};
 
   background-image: url(${pokemonLogo});
   background-color: white;
